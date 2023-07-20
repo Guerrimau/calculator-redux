@@ -1,13 +1,25 @@
-import React from 'react'
-import { css, styled } from 'styled-components'
-import { calculatorKeys } from '../../utils/calculator-keys'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { css, styled } from 'styled-components';
+import { calculatorKeys } from '../../utils/calculator-keys';
+import { addNumber } from "../../app/reducers/calculatorSlice";
+
 
 export const Keypad = () => {
+  const dispatch = useDispatch();
+
+  const onKeyClick = (keyValue) => {
+    dispatch(addNumber(keyValue))
+  }
+
   return (
     <KeypadContainer>
       {calculatorKeys.map(key => {
         return (
-          <Button large={key.large} variant={key.variant}>
+          <Button
+            large={key.large}
+            variant={key.variant}
+            onClick={() => onKeyClick(key.value)}>
             {key.value}
           </Button>
         )

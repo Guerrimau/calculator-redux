@@ -11,9 +11,11 @@ const calculatorSlice = createSlice({
     initialState,
     reducers: {
         addNumber: (state, action) => {
-            state.screen.concat(action.payload)
+            state.screen = state.screen.concat(action.payload)
         }
     }
 })
+
+export const { addNumber } = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;

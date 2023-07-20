@@ -16,6 +16,6 @@ export const calculatorKeys = [
     { value: "/" },
     { value: "x" },
     { value: "RESET", large: true, variant: "secondary" },
-    { value: "x", large: true, variant: "accent" },
+    { value: "=", large: true, variant: "accent" },
   ]
   
