@@ -1,27 +1,17 @@
 import React from 'react'
 import { css, styled } from 'styled-components'
+import { calculatorKeys } from '../../utils/calculator-keys'
 
 export const Keypad = () => {
   return (
     <KeypadContainer>
-      <Button>7</Button>
-      <Button>8</Button>
-      <Button>9</Button>
-      <Button variant="secondary">DEL</Button>
-      <Button>4</Button>
-      <Button>5</Button>
-      <Button>6</Button>
-      <Button>+</Button>
-      <Button>1</Button>
-      <Button>2</Button>
-      <Button>3</Button>
-      <Button>-</Button>
-      <Button>.</Button>
-      <Button>0</Button>
-      <Button>/</Button>
-      <Button>x</Button>
-      <Button variant="secondary" large>RESET</Button>
-      <Button variant="accent" large>=</Button>
+      {calculatorKeys.map(key => {
+        return (
+          <Button large={key.large} variant={key.variant}>
+            {key.value}
+          </Button>
+        )
+      })}
     </KeypadContainer>
   )
 }
