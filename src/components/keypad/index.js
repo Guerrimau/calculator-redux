@@ -1,5 +1,5 @@
 import React from 'react'
-import { styled } from 'styled-components'
+import { css, styled } from 'styled-components'
 
 export const Keypad = () => {
   return (
@@ -7,7 +7,7 @@ export const Keypad = () => {
       <Button>7</Button>
       <Button>8</Button>
       <Button>9</Button>
-      <Button>DEL</Button>
+      <Button variant="secondary">DEL</Button>
       <Button>4</Button>
       <Button>5</Button>
       <Button>6</Button>
@@ -20,8 +20,8 @@ export const Keypad = () => {
       <Button>0</Button>
       <Button>/</Button>
       <Button>x</Button>
-      <Button>RESET</Button>
-      <Button>=</Button>
+      <Button variant="secondary" large>RESET</Button>
+      <Button variant="accent" large>=</Button>
     </KeypadContainer>
   )
 }
@@ -43,13 +43,32 @@ const Button = styled.button`
   background-color: hsl(30, 25%, 89%);
   box-shadow: 0px 3px 0px 0px  hsl(28, 16%, 65%);
   color: hsl(221, 14%, 31%);
-  font-size: 30px;
   font-weight: 700;
   text-align: center;
   border-radius: 5px;
   padding-top: 5px;
 
   &:active {
-    background-color: white;
+    filter: brightness(120%);
   }
+
+  font-size: ${({ children }) => children.length > 1 ? "22px" : "30px"};
+  grid-column: span ${props => props.large ? "2" : "1"};
+
+  ${({ variant = "primary" }) => {
+    if(variant === "secondary") {
+      return css`
+        background-color: hsl(225, 21%, 49%);
+        box-shadow: 0px 3px 0px 0px  hsl(224, 28%, 35%);
+        color: white;
+      `
+    }
+    if(variant === "accent") {
+      return css`
+        background-color: hsl(6, 63%, 50%);
+        box-shadow: 0px 3px 0px 0px  hsl(6, 70%, 34%);
+        color: white;
+      `
+    }
+  }};
 `;
