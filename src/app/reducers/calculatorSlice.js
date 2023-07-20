@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    screen: "",
+    currentNumber: "",
+    result: "",
     operator: "",
     value1: "",
 }
@@ -11,20 +12,33 @@ const calculatorSlice = createSlice({
     initialState,
     reducers: {
         addNumber: (state, action) => {
-            state.screen = state.screen.concat(action.payload)
+            if(state.result.length > 0) {
+                state.result = "";
+            }
+
+            if(state.currentNumber.includes(".")
+                && action.payload === ".") {
+                return;
+            }
+
+            state.currentNumber = state.currentNumber.concat(action.payload)
         },
         delNumber: (state) => {
-            state.screen = state.screen.slice(0, -1);
+            if(state.result.length > 0) {
+                state.result = "";
+            }
+
+            state.currentNumber = state.currentNumber.slice(0, -1);
         },
         addOperator: (state, action) => {
             state.operator = action.payload;
-            state.value1 = Number(state.screen); 
-            state.screen = "";
+            state.value1 = Number(state.currentNumber); 
+            state.currentNumber = "";
         },
         calculateValues: (state) => {
             let result = 0;
             const value1 = Number(state.value1);
-            const value2 = Number(state.screen);
+            const value2 = Number(state.currentNumber);
 
             switch (state.operator) {
                 case "+":
@@ -43,12 +57,17 @@ const calculatorSlice = createSlice({
                     break;
             }
 
-            state.screen = String(result)
-        },
-        resetValues: (state) => {
-            state.screen = ""
+            state.currentNumber = ""
             state.operator = ""
             state.value1 = ""
+            state.result = String(result)
+        },
+        resetValues: (state) => {
+            state.currentNumber = ""
+            state.result = ""
+            state.operator = ""
+            state.value1 = ""
+
         },
     }
 })

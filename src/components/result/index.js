@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux'
 import { styled } from 'styled-components'
 
 export const Result = () => {
-  const resultValue = useSelector(state => state.calculator.screen);
+  const { currentNumber, result } = useSelector(state => state.calculator);
 
   return (
     <ResultContainer>
-        <ReultText>{resultValue || 0}</ReultText>
+        <ReultText>{result || currentNumber || 0}</ReultText>
     </ResultContainer>
   )
 }
