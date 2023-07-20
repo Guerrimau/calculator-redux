@@ -2,14 +2,37 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { css, styled } from 'styled-components';
 import { calculatorKeys } from '../../utils/calculator-keys';
-import { addNumber } from "../../app/reducers/calculatorSlice";
+import { addNumber, delNumber, resetValues, addOperator, calculateValues } from "../../app/reducers/calculatorSlice";
 
 
 export const Keypad = () => {
   const dispatch = useDispatch();
 
   const onKeyClick = (keyValue) => {
-    dispatch(addNumber(keyValue))
+    switch (keyValue) {
+      case "+":
+      case "-":
+      case "x":
+      case "/":
+        dispatch(addOperator(keyValue))  
+        break;
+
+      case "=":
+        dispatch(calculateValues())
+        break;
+        
+      case "DEL":
+        dispatch(delNumber(keyValue));
+        break;
+
+      case "RESET":
+        dispatch(resetValues());
+        break;
+
+      default:
+        dispatch(addNumber(keyValue));
+        break;
+    }
   }
 
   return (
@@ -17,7 +40,7 @@ export const Keypad = () => {
       {calculatorKeys.map(key => {
         return (
           <Button
-            large={key.large}
+            large={Boolean(key.large)}
             variant={key.variant}
             onClick={() => onKeyClick(key.value)}>
             {key.value}
@@ -58,14 +81,14 @@ const Button = styled.button`
   grid-column: span ${props => props.large ? "2" : "1"};
 
   ${({ variant = "primary" }) => {
-    if(variant === "secondary") {
+    if (variant === "secondary") {
       return css`
         background-color: hsl(225, 21%, 49%);
         box-shadow: 0px 3px 0px 0px  hsl(224, 28%, 35%);
         color: white;
       `
     }
-    if(variant === "accent") {
+    if (variant === "accent") {
       return css`
         background-color: hsl(6, 63%, 50%);
         box-shadow: 0px 3px 0px 0px  hsl(6, 70%, 34%);
