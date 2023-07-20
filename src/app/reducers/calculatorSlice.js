@@ -31,8 +31,15 @@ const calculatorSlice = createSlice({
             state.currentNumber = state.currentNumber.slice(0, -1);
         },
         addOperator: (state, action) => {
+            let value1 = Number(state.currentNumber);
+
+            if(state.result.length > 0) {
+                value1 = Number(state.result);
+                state.result = 0
+            }
+
             state.operator = action.payload;
-            state.value1 = Number(state.currentNumber); 
+            state.value1 = value1
             state.currentNumber = "";
         },
         calculateValues: (state) => {
