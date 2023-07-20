@@ -1,8 +1,8 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Result } from "./components/result";
-import { Keypad } from "./components/keypad";
-import { Header } from "./components/header";
+import { Result } from "../components/result";
+import { Keypad } from "../components/keypad";
+import { Header } from "../components/header";
 
 export const CalculatorApp = () => {
   return (

@@ -1,7 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { styled } from 'styled-components'
 
 export const Result = () => {
+  const resultValue = useSelector(state => state.calculator);
+  console.log(resultValue)
+
   return (
     <ResultContainer>
         <ReultText>399,981</ReultText>
